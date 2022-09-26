@@ -43,8 +43,8 @@ export const formatRoutes = (routes) => {
                     require(['../components/'+component+'.vue'],resolve);
                 }else if (component.startsWith("UserBasic")){
                     require(['../views/user/'+component+'.vue'],resolve);
-                }else if(component.startsWith("Tool")){
-                    require(['../views/tool/'+component+'.vue'],resolve);
+                }else if(component.startsWith("Customer")){
+                    require(['../views/customer/'+component+'.vue'],resolve);
                 }else if(component.startsWith("Sys")){
                     require(['../views/sys/'+component+'.vue'],resolve);
                 }else if(component.startsWith("Dashboard")){

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import homePage from '@/components/HomePage'
 import Login from '@/components/Login'
 import dupNameJudge from '@/components/DupNameJudge'
 import Page404 from '@/components/pageError/page404'

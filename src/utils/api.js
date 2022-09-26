@@ -10,7 +10,6 @@ axios.default.timeout = 500000
 //请求拦截器
 axios.interceptors.request.use(config => {
   //拿tokenStorage,如果存在token,请求携带这个token
-  console.log("test--------------")
   console.log("测试请求是否被拦截")
   if (window.localStorage.getItem('tokenStr')) {
     console.log("进来")
@@ -29,7 +28,7 @@ axios.interceptors.request.use(config => {
 //响应拦截器
 axios.interceptors.response.use(success => {
   //业务逻辑错误
-  console.log("返回数据",success)
+  console.log("返回数据:",success)
   // console.log(window.localStorage.getItem("token"))
   if (success.status && success.status == 200) {
     // console.log(success.data.code)
