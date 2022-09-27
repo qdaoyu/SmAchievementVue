@@ -2,7 +2,7 @@
     <div class="menu">
         <el-container>
             <el-header class="homeHeader">
-                <div class="title"> 秋刀🐟</div>
+                <div class="title"> 尚美业绩</div>
                 <el-dropdown class="userInfo" @command="commandHandler">
 
                     <span class="el-dropdown-link">
@@ -36,7 +36,7 @@
                         <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
                         <el-breadcrumb-item>{{this.$router.currentRoute.name}}</el-breadcrumb-item>
                     </el-breadcrumb>
-                    <div class="homeWelcom" v-if="this.$router.currentRoute.path=='/home'">欢迎来到秋刀鱼塘</div>
+                    <div class="homeWelcom" v-if="this.$router.currentRoute.path=='/home'">欢迎使用尚美业绩系统</div>
                     <router-view></router-view>
                 </el-main>
             </el-container>
