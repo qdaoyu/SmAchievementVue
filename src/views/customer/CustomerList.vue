@@ -12,7 +12,7 @@
         </el-button>
       </div>
       <div>
-        <el-button type="success"><i class="fa fa-level-up" aria-hidden="true"></i>导入数据</el-button>
+        <!-- <el-button type="success"><i class="fa fa-level-up" aria-hidden="true"></i>导入数据</el-button> -->
         <el-button type="success"><i class="fa fa-level-down" aria-hidden="true"></i>导出数据</el-button>
         <el-button type="primary" icon="el-icon-plus" @click="showAddCustomerView">添加员工</el-button>
       </div>
@@ -28,13 +28,17 @@
         </el-table-column>
         <el-table-column fixed prop="Name" label="姓名" align="center" width="120">
         </el-table-column>
-        <el-table-column fixed prop="Consumetype" label="消费类型" align="center" width="120">
+        <el-table-column fixed prop="Shop" label="门店" align="center" width="120">
         </el-table-column>
-        <el-table-column prop="Item" label="项目" align="center" width="120">
-        </el-table-column>
+        <!-- <el-table-column fixed prop="Consumetype" label="消费类型" align="center" width="120">
+        </el-table-column> -->
+        <!-- <el-table-column prop="Item" label="项目" align="center" width="120">
+        </el-table-column> -->
         <el-table-column prop="Gender" label="性别" align="center" width="120">
         </el-table-column>
         <el-table-column prop="Phone" label="号码" align="center" width="150">
+        </el-table-column>
+        <el-table-column prop="Visittime" label="见诊日期" align="center" width="150">
         </el-table-column>
         <el-table-column prop="Consultteach" label="所属咨询师" align="center" width="150">
         </el-table-column>
@@ -58,9 +62,9 @@
         </el-pagination>
       </div>
     </div>
-    <el-dialog title="添加员工" :visible.sync="dialogVisible" width="60%">
+    <el-dialog title="添加员工" :visible.sync="dialogVisible" width="70%">
       <div>
-        <el-form ref="customerForm" :model="customerForm" :rules="rules" label-width="80px">
+        <el-form ref="customerForm" :model="customerForm" :rules="rules" label-width="85px">
           <!-- gutter是每个分栏之间的距离 -->
           <el-row>
             <el-col :span="6">
@@ -111,21 +115,21 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="项目:" prop="item">
+              <!-- <el-form-item label="项目:" prop="item">
                 <el-select filterable style="width: 150px;" v-model="customerForm.item" placeholder="请选择项目">
                   <el-option v-for="item in itemList" :key="item.Id" :label="item.Item" :value="item.Item">
                   </el-option>
                 </el-select>
-              </el-form-item>
+              </el-form-item> -->
             </el-col>
             <el-col :span="6">
-              <el-form-item label="消费类型:" prop="consumetype">
+              <!-- <el-form-item label="消费类型:" prop="consumetype">
                 <el-select filterable style="width: 150px;" v-model="customerForm.consumetype" placeholder="请选择消费类型">
                   <el-option v-for="item in consumetypeList" :key="item.Id" :label="item.Consumetype"
                     :value="item.Consumetype">
                   </el-option>
                 </el-select>
-              </el-form-item>
+              </el-form-item> -->
             </el-col>
           </el-row>
         </el-form>
@@ -147,22 +151,22 @@ export default {
       total: 0,
       currentPage: 1,
       size: 10,
-      dialogVisible: false,
-      shopList: [],
+      dialogVisible: false,    
       consultteachList: [],
-      itemList: [],
-      consumetypeList: [],
+      shopList: [],
+      // itemList: [],
+      // consumetypeList: [],
       customerList: [],
       customerForm: {
+        "customerid": "",
         "name": "",
         "gender": "",
         "phone": "",
         "shop": "",
         "consultteach": "",
-        "item": "",
         "visittime": "",
-        "consumetype": "",
-        "customerid": ""
+        // "item": "",
+        // "consumetype": "",
       },
       rules: {
         name: [{ required: true, message: "请输入会员名", trigger: 'blur' }],
@@ -171,9 +175,9 @@ export default {
         { pattern: /^1[34578]\d{9}$/, message: "请输入11位手机号码", trigger: 'blur' }],
         shop: [{ required: true, message: "请选择门店", trigger: 'blur' }],
         consultteach: [{ required: true, message: "请选择咨询师", trigger: 'blur' }],
-        item: [{ required: true, message: "请选择项目", trigger: 'blur' }],
+        // item: [{ required: true, message: "请选择项目", trigger: 'blur' }],
         visittime: [{ required: true, message: "请选择见诊日期", trigger: 'blur' }],
-        consumetype: [{ required: true, message: "请选择消费类型", trigger: 'blur' }],
+        // consumetype: [{ required: true, message: "请选择消费类型", trigger: 'blur' }],
       }
 
     }
@@ -199,19 +203,19 @@ export default {
         }
       });
       //初始化项目信息
-      this.getRequest("/api/basic/item").then(resp => {
-        if (resp) {
-          // console.log("项目信息:",resp)
-          this.itemList = resp.data
-        }
-      });
+      // this.getRequest("/api/basic/item").then(resp => {
+      //   if (resp) {
+      //     // console.log("项目信息:",resp)
+      //     this.itemList = resp.data
+      //   }
+      // });
       //初始化消费类型信息
-      this.getRequest("/api/basic/consumetype").then(resp => {
-        if (resp) {
-          // console.log("消费类型信息:",resp)
-          this.consumetypeList = resp.data
-        }
-      });
+      // this.getRequest("/api/basic/consumetype").then(resp => {
+      //   if (resp) {
+      //     // console.log("消费类型信息:",resp)
+      //     this.consumetypeList = resp.data
+      //   }
+      // });
     },
 
     initCustomerList() {
@@ -245,15 +249,19 @@ export default {
     doAddCustomer() {
       this.$refs['customerForm'].validate(valid => {
         if (valid) {
-          this.$message.success("信息正确")
-          // this.postRequest("/api/customer/add", this.customerForm).then(resp => {
-          //   if (resp) {
-          //     this.dialogVisible = false
-          //     this.initCustomerList();
+          this.customerForm.customerid = this.customerForm.name + this.customerForm.visittime.replaceAll("-","") + this.customerForm.phone
+          // console.log(this.customerForm)
+          // this.$message.success("信息正确")
+          this.postRequest("/api/customer/add", this.customerForm).then(resp => {
+            if (resp) {
+              this.$message.success("新增会员成功")
+              this.dialogVisible = false
+              this.initCustomerList();
 
-          //   }
-          // })
-            console.log("");
+            }
+          })
+          
+            
         }else{
           this.$message.error("信息输入有误，请检查")
         }
