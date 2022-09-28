@@ -6,7 +6,7 @@
                 <el-dropdown class="userInfo" @command="commandHandler">
 
                     <span class="el-dropdown-link">
-                        <i style="color: aliceblue;">{{user.name}}</i><img src="@/assets/headPic/catHeadPic.png">
+                        <i style="color: gray;">{{user.name}}</i><img src="@/assets/headPic/catHeadPic.png">
                     </span>
 
                     <el-dropdown-menu slot="dropdown">
@@ -94,19 +94,20 @@ export default {
 
 <style scoped>
 .homeHeader {
-    background: #409eff;
+    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 15px;
     box-sizing: border-box;
+    box-shadow: 0 0 15px #cacac6;
 }
 
 .homeHeader .title {
     margin-left: 50px;
-    font-size: x-large;
+    font-size: 22px;
     font-family: 行楷;
-    color: white;
+    color: black;
     font-style: oblique;
 }
 
