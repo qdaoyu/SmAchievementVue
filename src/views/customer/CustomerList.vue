@@ -1,24 +1,38 @@
 <template>
     <div>
         <!-- 第一个div写工具栏 -->
-        <div style="display: flex;justify-content: space-between;">
-            <div>
-                <el-input style="width: 300px;margin-right: 10px;margin-top: 10px;" prefix-icon="el-icon-search"
-                    placeholder="请输入会员名进行搜索"></el-input>
-                <el-button type="primary" icon="el-icon-search">搜索</el-button>
-                <el-button type="primary" icon="el-icon-search">
-                    <i class="fa fa-angle-double-down" aria-hidden="true"></i>
-                    高级搜索
-                </el-button>
-            </div>
-            <div>
-                <!-- <el-button type="success"><i class="fa fa-level-up" aria-hidden="true"></i>导入数据</el-button> -->
-                <el-button type="success"><i class="fa fa-level-down" aria-hidden="true"></i>导出数据</el-button>
-                <el-button type="primary" icon="el-icon-plus" @click="showAddCustomerView">添加员工</el-button>
+        <div>
+            <div style="display: flex;justify-content: space-between;">
+                <div>
+                    <el-input style="width: 300px;margin-right: 10px;margin-top: 10px;" prefix-icon="el-icon-search"
+                        placeholder="请输入会员名进行搜索"></el-input>
+                    <el-button type="primary" icon="el-icon-search">搜索</el-button>
+                    <el-button type="primary" icon="el-icon-search">
+                        <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                        高级搜索
+                    </el-button>
+                </div>
+                <div>
+                    <!-- <el-button type="success"><i class="fa fa-level-up" aria-hidden="true"></i>导入数据</el-button> -->
+                    <el-button type="success" @click="exportData"><i class="fa fa-level-down"
+                            aria-hidden="true"></i>导出数据</el-button>
+                    <el-button type="primary" icon="el-icon-plus" @click="showAddCustomerView">添加员工</el-button>
+                </div>
             </div>
         </div>
+        <div style="border:1px solid #409eff; border-radius:5px; box-sizing:border-box;padding:5px;margin:10px 0px">
+            <el-row>
+                <el-col :span="5">
+                    门店
+                    <el-select filterable style="width: 180px;" v-model="customerForm.Shop" placeholder="请选择门店">
+                        <el-option v-for="item in shopList" :key="item.Id" :label="item.Name" :value="item.Shopname">
+                        </el-option>
+                    </el-select>
+                </el-col>
+            </el-row>
+        </div>
         <!-- 第二个div写表格 -->
-        <div>
+        <div style="margin-top:10px;">
             <el-table :data="customerList" stripe border v-loading="loading" element-loading-text="拼命加载中"
                 element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" height="450"
                 style="width: 100%; margin-top: 10px;">
@@ -270,6 +284,9 @@ export default {
             console.log(this.customerForm)
             this.dialogVisible = true;
 
+        },
+        exportData() {
+            this.downloadRequest('/api/customer/export');
         },
         //添加客户
         doAddCustomer() {
