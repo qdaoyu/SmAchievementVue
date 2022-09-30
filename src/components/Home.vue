@@ -16,7 +16,7 @@
                     </el-dropdown-menu>
                 </el-dropdown>
             </el-header>
-            <el-container>
+            <el-container style="margin-top:4px">
                 <el-aside style="width:200px;height: 800px;">
                     <el-menu router unique-opened>
                         <el-submenu :index="index+''" v-for="(item,index) in routes" :key="index" v-if="!item.hidden">
@@ -124,7 +124,8 @@ export default {
     margin-left: 8px;
     margin-bottom: 6px;
 }
-.homeWelcom{
+
+.homeWelcom {
     text-align: center;
     font-size: 30px;
     font-family: 楷体;
