@@ -7,8 +7,10 @@
                     <el-input style="width: 300px;margin-right: 10px;margin-top: 10px;" prefix-icon="el-icon-search"
                         placeholder="请输入会员名进行搜索"></el-input>
                     <el-button type="primary" icon="el-icon-search">搜索</el-button>
-                    <el-button type="primary" icon="el-icon-search">
-                        <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                    <el-button type="primary" icon="el-icon-search"
+                        @click="showAdvanceSearchVisible =!showAdvanceSearchVisible">
+                        <i :class="showAdvanceSearchVisible?'fa fa-angle-double-up':'fa fa-angle-double-down'"
+                            aria-hidden="true"></i>
                         高级搜索
                     </el-button>
                 </div>
@@ -20,17 +22,46 @@
                 </div>
             </div>
         </div>
-        <div style="border:1px solid #409eff; border-radius:5px; box-sizing:border-box;padding:5px;margin:10px 0px">
-            <el-row>
-                <el-col :span="5">
-                    门店
-                    <el-select filterable style="width: 180px;" v-model="customerForm.Shop" placeholder="请选择门店">
-                        <el-option v-for="item in shopList" :key="item.Id" :label="item.Name" :value="item.Shopname">
-                        </el-option>
-                    </el-select>
-                </el-col>
-            </el-row>
-        </div>
+        <transition  name="slide-fade">
+            <div v-show="showAdvanceSearchVisible"
+                style="border:1px solid #E9E9E8; border-radius:5px; box-sizing:border-box;padding:5px;margin:10px 0px">
+                <el-row>
+                    <!-- <el-col :span="5">
+                    姓名:
+                    <el-form-item label="会员姓名:" prop="Name" style="">
+                        <el-input size="middle" style="width: 180px;" prefix-icon="el-icon-edit"
+                            v-model="customerForm.Name" placeholder="请输入会员姓名"></el-input>
+                    </el-form-item>
+                </el-col> -->
+                    <el-col :span="5">
+                        门店:
+                        <el-select filterable style="width: 180px;" v-model="customerForm.Shop" placeholder="请选择门店">
+                            <el-option v-for="item in shopList" :key="item.Id" :label="item.Name"
+                                :value="item.Shopname">
+                            </el-option>
+                        </el-select>
+                    </el-col>
+                    <el-col :span="5">
+                        手机号码:
+                        <el-input size="middle" style="width: 150px;" prefix-icon="el-icon-phone"
+                            v-model="customerForm.Phone" placeholder="请输入手机号码"></el-input>
+                    </el-col>
+                    <el-col :span="5">
+                        咨询师:
+                        <el-select filterable style="width: 150px;" v-model="customerForm.Consultteach"
+                            placeholder="请选择咨询师">
+                            <el-option v-for="item in consultteachList" :key="item.Id" :label="item.Name"
+                                :value="item.Name">
+                            </el-option>
+                        </el-select>
+                    </el-col>
+                    <el-col :span="4" :offset="5">
+                        <el-button>取消</el-button>
+                        <el-button icon="el-icon-search" type="primary">搜索</el-button>
+                    </el-col>
+                </el-row>
+            </div>
+        </transition>
         <!-- 第二个div写表格 -->
         <div style="margin-top:10px;">
             <el-table :data="customerList" stripe border v-loading="loading" element-loading-text="拼命加载中"
@@ -165,6 +196,7 @@ export default {
     name: "CustomerList",
     data() {
         return {
+            showAdvanceSearchVisible: false,
             title: "",
             loading: false,
             total: 0,
