@@ -4,11 +4,11 @@
         <div>
             <div style="display: flex;justify-content: space-between;">
                 <div>
-                    <el-input style="width: 300px;margin-right: 10px;margin-top: 10px;" prefix-icon="el-icon-search"
+                    <el-input :disabled="controlSearch" v-model="searchValue.Name" style="width: 300px;margin-right: 10px;margin-top: 10px;" prefix-icon="el-icon-search"
                         placeholder="请输入会员名进行搜索"></el-input>
-                    <el-button type="primary" icon="el-icon-search">搜索</el-button>
+                    <el-button :disabled="controlSearch" type="primary" icon="el-icon-search" @click="initCustomerList('nameSearch')">搜索</el-button>
                     <el-button type="primary" icon="el-icon-search"
-                        @click="showAdvanceSearchVisible =!showAdvanceSearchVisible">
+                        @click="showAdvanceSearchVisible =!showAdvanceSearchVisible;controlSearch=!controlSearch">
                         <i :class="showAdvanceSearchVisible?'fa fa-angle-double-up':'fa fa-angle-double-down'"
                             aria-hidden="true"></i>
                         高级搜索
@@ -35,7 +35,7 @@
                 </el-col> -->
                     <el-col :span="5">
                         门店:
-                        <el-select filterable style="width: 180px;" v-model="customerForm.Shop" placeholder="请选择门店">
+                        <el-select filterable style="width: 180px;" v-model="searchValue.Shop" placeholder="请选择门店">
                             <el-option v-for="item in shopList" :key="item.Id" :label="item.Name"
                                 :value="item.Shopname">
                             </el-option>
@@ -44,11 +44,11 @@
                     <el-col :span="5">
                         手机号码:
                         <el-input size="middle" style="width: 150px;" prefix-icon="el-icon-phone"
-                            v-model="customerForm.Phone" placeholder="请输入手机号码"></el-input>
+                            v-model="searchValue.Phone" placeholder="请输入手机号码"></el-input>
                     </el-col>
                     <el-col :span="5">
                         咨询师:
-                        <el-select filterable style="width: 150px;" v-model="customerForm.Consultteach"
+                        <el-select filterable style="width: 150px;" v-model="searchValue.Consultteach"
                             placeholder="请选择咨询师">
                             <el-option v-for="item in consultteachList" :key="item.Id" :label="item.Name"
                                 :value="item.Name">
@@ -56,8 +56,8 @@
                         </el-select>
                     </el-col>
                     <el-col :span="4" :offset="5">
-                        <el-button>取消</el-button>
-                        <el-button icon="el-icon-search" type="primary">搜索</el-button>
+                        <el-button @click="resetSearchValue">重置</el-button>
+                        <el-button @click="initCustomerList('advanced')" icon="el-icon-search" type="primary">搜索</el-button>
                     </el-col>
                 </el-row>
             </div>
@@ -196,6 +196,14 @@ export default {
     name: "CustomerList",
     data() {
         return {
+            controlSearch:false,
+            searchValue:{
+                Name:null,
+                Shop:null,
+                Phone:null,
+                Consultteach:null,
+
+            },
             showAdvanceSearchVisible: false,
             title: "",
             loading: false,
@@ -269,9 +277,27 @@ export default {
             // });
         },
 
-        initCustomerList() {
+        initCustomerList(type) {
             this.loading = true
-            this.getRequest("/api/customer/list?currentPage=" + this.currentPage.toString() + '&size=' + this.size.toString()).then(resp => {
+            let url = "/api/customer/list?currentPage=" + this.currentPage.toString() + '&size=' + this.size.toString();
+            if(type && type == "advanced"){
+                if(this.searchValue.Consultteach){
+                    url += '&consultteach=' + this.searchValue.Consultteach
+                }
+                if(this.searchValue.Phone){
+                    url += '&phone=' + this.searchValue.Phone
+                }
+                if(this.searchValue.Shop){
+                    url += '&shop=' + this.searchValue.Shop
+                }
+
+            }
+            if(type && type == "nameSearch"){
+                if(this.searchValue.Name){
+                    url += '&name=' + this.searchValue.Name
+                }
+            }
+            this.getRequest(url).then(resp => {
                 this.loading = false
                 if (resp) {
                     console.log("data:", resp)
@@ -395,7 +421,17 @@ export default {
                 });
             });
 
-        }
+        },
+        //重置高级筛选
+        resetSearchValue(){
+            this.searchValue = {
+                Name:null,
+                Shop:null,
+                Phone:null,
+                Consultteach:null,
+
+            }
+        },
 
     },
 
