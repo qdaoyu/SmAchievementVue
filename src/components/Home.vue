@@ -5,9 +5,15 @@
                 <div class="title"> 尚美业绩</div>
                 <el-dropdown class="userInfo" @command="commandHandler">
 
-                    <span class="el-dropdown-link">
+
+                    <div class="el-dropdown-link">
+                        <div class="el-dropdown-link-user">{{user.name}}</div>
+                        <img src="@/assets/headPic/catHeadPic.png"/>
+                    </div>
+                    
+                    <!-- <span class="el-dropdown-link">
                         <i style="color: gray;">{{user.name}}</i><img src="@/assets/headPic/catHeadPic.png">
-                    </span>
+                    </span> -->
 
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item command="userinfo">个人中心</el-dropdown-item>
@@ -117,12 +123,20 @@ export default {
 
 }
 
+.el-dropdown-link-user {
+    height: 48px;
+    line-height: 48px;
+}
+.el-dropdown-link {
+    height: 100%;
+    display: flex;
+    text-align: center;
+}
 .el-dropdown-link img {
     width: 48px;
     height: 48px;
     border-radius: 24px;
     margin-left: 8px;
-    margin-bottom: 6px;
 }
 
 .homeWelcom {

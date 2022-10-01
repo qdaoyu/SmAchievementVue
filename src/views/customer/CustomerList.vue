@@ -7,17 +7,17 @@
                     <el-input :disabled="controlSearch" v-model="searchValue.Name" style="width: 300px;margin-right: 10px;margin-top: 10px;" prefix-icon="el-icon-search"
                         placeholder="请输入会员名进行搜索"></el-input>
                     <el-button :disabled="controlSearch" type="primary" icon="el-icon-search" @click="initCustomerList('nameSearch')">搜索</el-button>
-                    <el-button type="primary" icon="el-icon-search"
+                    <el-button type="primary"
                         @click="showAdvanceSearchVisible =!showAdvanceSearchVisible;controlSearch=!controlSearch">
                         <i :class="showAdvanceSearchVisible?'fa fa-angle-double-up':'fa fa-angle-double-down'"
-                            aria-hidden="true"></i>
+                            aria-hidden="true" style="margin-right: 5px;"></i>
                         高级搜索
                     </el-button>
                 </div>
                 <div>
                     <!-- <el-button type="success"><i class="fa fa-level-up" aria-hidden="true"></i>导入数据</el-button> -->
                     <el-button type="success" @click="exportData"><i class="fa fa-level-down"
-                            aria-hidden="true"></i>导出数据</el-button>
+                            aria-hidden="true" style="margin-right: 5px;"></i>导出数据</el-button>
                     <el-button type="primary" icon="el-icon-plus" @click="showAddCustomerView">添加员工</el-button>
                 </div>
             </div>
@@ -65,8 +65,9 @@
         <!-- 第二个div写表格 -->
         <div style="margin-top:10px;">
             <el-table :data="customerList" stripe border v-loading="loading" element-loading-text="拼命加载中"
-                element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" height="450"
-                style="width: 100%; margin-top: 10px;">
+                element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" height="600"
+                style="width: 100%; margin-top: 10px;"
+                :default-sort = "{prop: 'Unoperanum', order: 'descending'}">
                 <el-table-column type="selection" width="55">
                 </el-table-column>
                 <el-table-column fixed prop="Customerid" label="会员id" align="center" width="150">
@@ -91,7 +92,7 @@
                 </el-table-column>
                 <el-table-column prop="Operanum" label="操作次数" align="center" width="120">
                 </el-table-column>
-                <el-table-column prop="Unoperanum" label="剩余次数" align="center" width="120">
+                <el-table-column prop="Unoperanum" label="剩余次数" sortable align="center" width="120">
                 </el-table-column>
 
                 <el-table-column fixed="right" label="操作" align="center">
@@ -196,6 +197,7 @@ export default {
     name: "CustomerList",
     data() {
         return {
+            controlUpdateOrAdd:"add",
             controlSearch:false,
             searchValue:{
                 Name:null,
@@ -339,7 +341,7 @@ export default {
             console.log(data)
             this.title = "编辑会员信息";
             this.customerForm = data;
-            console.log(this.customerForm)
+            console.log("this.customerForm:",this.customerForm)
             this.dialogVisible = true;
 
         },
@@ -352,7 +354,8 @@ export default {
             if (this.customerForm.Customerid) {
                 this.$refs['customerForm'].validate(valid => {
                     if (valid) {
-                        this.customerForm.Customerid = this.customerForm.Name + this.customerForm.Visittime.replaceAll("-", "") + this.customerForm.Phone
+                        // this.customerForm.Customerid = this.customerForm.Name + this.customerForm.Visittime.replaceAll("-", "") + this.customerForm.Phone
+                        // this.customerForm.Customerid = this.customerForm.Name + this.customerForm.Visittime.replaceAll("-", "") + this.customerForm.Phone
                         // console.log(this.customerForm)
                         // this.$message.success("信息正确")
                         this.putRequest("/api/customer/update", this.customerForm).then(resp => {
@@ -378,7 +381,7 @@ export default {
                         this.postRequest("/api/customer/add", this.customerForm).then(resp => {
                             if (resp) {
                                 this.$message.success("新增会员成功")
-                                this.dialogVisible = false
+                                this.dialogVisible = false;
                                 this.initCustomerList();
 
                             }
