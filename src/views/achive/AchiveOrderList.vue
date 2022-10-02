@@ -84,10 +84,10 @@
                 </el-table-column>
                 <el-table-column fixed prop="Visittime" label="见诊日期" align="center" width="100">
                 </el-table-column>
-                <el-table-column fixed prop="Customerid" label="会员id"  style="font-size:1px" align="center" width="100">
+                <el-table-column fixed prop="Customerid" label="会员id" style="font-size:1px" align="center" width="100">
                 </el-table-column>
                 <el-table-column fixed prop="Consumetype" label="消费类型" align="center" width="100">
-                </el-table-column> 
+                </el-table-column>
                 <el-table-column prop="Item" label="项目" align="center" width="100">
                 </el-table-column>
                 <!-- <el-table-column fixed prop="Name" label="姓名" align="center" width="120">
@@ -100,7 +100,7 @@
                 <el-table-column prop="Qbmoney" label="祛斑金额" align="center" width="100">
                 </el-table-column>
                 <el-table-column prop="Mmmoney" label="面膜金额" align="center" width="100">
-                </el-table-column>  
+                </el-table-column>
                 <el-table-column prop="Mmboxnum" label="面膜盒数" align="center" width="100">
                 </el-table-column>
                 <el-table-column prop="Donateboxnum" label="赠送盒数" align="center" width="100">
@@ -145,30 +145,19 @@
                 </el-pagination>
             </div>
         </div>
-        <el-dialog :title="title" :visible.sync="dialogVisible" width="70%">
+        <el-dialog :title="title" :visible.sync="dialogVisible" width="75%">
             <div>
-                <el-form ref="orderForm" :model="orderForm" :rules="rules" label-width="85px">
+                <el-form ref="orderForm" :model="orderForm" :rules="rules" label-width="120px">
                     <!-- gutter是每个分栏之间的距离 -->
                     <el-row>
                         <el-col :span="6">
-                            <el-form-item label="会员姓名:" prop="Name" style="">
-                                <el-input size="middle" style="width: 180px;" prefix-icon="el-icon-edit"
-                                    v-model="orderForm.Name" placeholder="请输入会员姓名"></el-input>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="6">
-                            <el-form-item label="性别:" prop="Gender">
-                                <el-radio-group v-model="orderForm.Gender">
-                                    <el-radio label="男">男</el-radio>
-                                    <el-radio label="女">女</el-radio>
-                                </el-radio-group>
-                            </el-form-item>
-                        </el-col>
-
-                        <el-col :span="6">
-                            <el-form-item label="手机号码:" prop="Phone">
-                                <el-input size="middle" style="width: 150px;" prefix-icon="el-icon-phone"
-                                    v-model="orderForm.Phone" placeholder="请输入手机号码"></el-input>
+                            <el-form-item label="会员id:" prop="Shop">
+                                <el-select filterable style="width: 180px;" v-model="orderForm.Customerid"
+                                    placeholder="请输入会员名选择">
+                                    <el-option v-for="item in customeridList" :key="item.Id" :label="item.Name"
+                                        :value="item.Customerid">
+                                    </el-option>
+                                </el-select>
                             </el-form-item>
                         </el-col>
                         <el-col :span="6">
@@ -178,20 +167,120 @@
                                 </el-date-picker>
                             </el-form-item>
                         </el-col>
-
-                    </el-row>
-                    <el-row>
+                        <!-- <el-col :span="6">
+                            <el-form-item label="消费类型:" prop="Consumetype">
+                                <el-input size="middle" style="width: 150px;" prefix-icon="el-icon-phone"
+                                    v-model="orderForm.Phone" placeholder="请输入手机号码"></el-input>
+                            </el-form-item>
+                        </el-col> -->
                         <el-col :span="6">
-                            <el-form-item label="门店:" prop="Shop">
-                                <el-select filterable style="width: 180px;" v-model="orderForm.Shop"
-                                    placeholder="请选择门店">
-                                    <el-option v-for="item in shopList" :key="item.Id" :label="item.Name"
-                                        :value="item.Shopname">
+                            <el-form-item label="消费类型:" prop="Consumtype">
+                                <el-select filterable style="width: 150px;" v-model="orderForm.Consumetype"
+                                    placeholder="请选择消费类型">
+                                    <el-option v-for="item in consumetypeList" :key="item.Id" :label="item.Name"
+                                        :value="item.Consumetype">
                                     </el-option>
                                 </el-select>
                             </el-form-item>
                         </el-col>
                         <el-col :span="6">
+                            <el-form-item label="项目:" prop="Item">
+                                <el-select filterable style="width: 150px;" v-model="orderForm.Item"
+                                    placeholder="请选择项目">
+                                    <el-option v-for="item in itemList" :key="item.Id" :label="item.Name"
+                                        :value="item.Item">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+
+                    </el-row>
+                    <el-row>
+                       <el-col :span="6">
+                            <el-form-item label="疗程次数:" prop="Treatnum" >
+                                <el-input size="middle" style="width: 150px;" prefix-icon=""
+                                    v-model="orderForm.Treatnum" placeholder="请输入疗程次数"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="6" >
+                            <el-form-item label="四维美雕金额:" prop="Swmdmoney" >
+                                <el-input size="middle" style="width: 150px;font-size: small;" prefix-icon=""
+                                    v-model="orderForm.Swmdmoney" placeholder="请输入四维美雕金额"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="6" >
+                            <el-form-item label="祛斑金额:" prop="Qbmoney" >
+                                <el-input size="middle" style="width: 150px;" prefix-icon=""
+                                    v-model="orderForm.Qbmoney" placeholder="请输入祛斑金额"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="6">
+                            <el-form-item label="面膜金额:" prop="Mmmoney" >
+                                <el-input size="middle" style="width: 150px;" prefix-icon=""
+                                    v-model="orderForm.Mmmoney" placeholder="请输入面膜金额"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                       <el-col :span="6">
+                            <el-form-item label="面膜盒数:" prop="Mmboxnum" >
+                                <el-input size="middle" style="width: 150px;" prefix-icon=""
+                                    v-model="orderForm.Mmboxnum" placeholder="请输入面膜盒数"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="6" >
+                            <el-form-item label="捐赠盒数:" prop="Donateboxnum" >
+                                <el-input size="middle" style="width: 150px;" prefix-icon=""
+                                    v-model="orderForm.Donateboxnum" placeholder="请输入捐赠盒数"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="6" >
+                            <el-form-item label="冻干粉金额:" prop="Dgfmoney" >
+                                <el-input size="middle" style="width: 150px;" prefix-icon=""
+                                    v-model="orderForm.Dgfmoney" placeholder="请输入冻干粉金额"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="6">
+                            <el-form-item label="修复液金额:" prop="Xfymoney" >
+                                <el-input size="middle" style="width: 150px;" prefix-icon=""
+                                    v-model="orderForm.Xfymoney" placeholder="请输入修复液金额"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                       <el-col :span="6">
+                            <el-form-item label="合计成交金额:" prop="Totalmoney" >
+                                <el-input size="middle" style="width: 150px;font-size: small;" prefix-icon=""
+                                    v-model="orderForm.Totalmoney" placeholder="请输入合计成交金额"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="6" >
+                            <el-form-item label="回款金额:" prop="Returnmoney" >
+                                <el-input size="middle" style="width: 150px;" prefix-icon=""
+                                    v-model="orderForm.Returnmoney" placeholder="请输入回款金额"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="6" >
+                            <el-form-item label="卡扣金额:" prop="Kkmoney" >
+                                <el-input size="middle" style="width: 150px;" prefix-icon=""
+                                    v-model="orderForm.Kkmoney" placeholder="请输入卡扣金额"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="6">
+                            <el-form-item label="欠款金额:" prop="Owedmoney" >
+                                <el-input size="middle" style="width: 150px;" prefix-icon=""
+                                    v-model="orderForm.Owedmoney" placeholder="请输入欠款金额"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                       <el-col :span="6">
+                            <el-form-item label="实付金额:" prop="Paidmoney" >
+                                <el-input size="middle" style="width: 150px;font-size: small;" prefix-icon=""
+                                    v-model="orderForm.Paidmoney" placeholder="请输入实付金额"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="6" >
                             <el-form-item label="咨询师:" prop="Consultteach">
                                 <el-select filterable style="width: 150px;" v-model="orderForm.Consultteach"
                                     placeholder="请选择咨询师">
@@ -201,23 +290,27 @@
                                 </el-select>
                             </el-form-item>
                         </el-col>
-                        <el-col :span="6">
-                            <!-- <el-form-item label="项目:" prop="item">
-                <el-select filterable style="width: 150px;" v-model="customerForm.item" placeholder="请选择项目">
-                  <el-option v-for="item in itemList" :key="item.Id" :label="item.Item" :value="item.Item">
-                  </el-option>
-                </el-select>
-              </el-form-item> -->
+                        <el-col :span="6" >
+                            <el-form-item label="导前师:" prop="Dqteach" >
+                                <el-input size="middle" style="width: 150px;" prefix-icon=""
+                                    v-model="orderForm.Dqteach" placeholder="请输入导前师"></el-input>
+                            </el-form-item>
                         </el-col>
                         <el-col :span="6">
-                            <!-- <el-form-item label="消费类型:" prop="consumetype">
-                <el-select filterable style="width: 150px;" v-model="customerForm.consumetype" placeholder="请选择消费类型">
-                  <el-option v-for="item in consumetypeList" :key="item.Id" :label="item.Consumetype"
-                    :value="item.Consumetype">
-                  </el-option>
-                </el-select>
-              </el-form-item> -->
+                            <el-form-item label="操作师:" prop="Operateach" >
+                                <el-input size="middle" style="width: 150px;" prefix-icon=""
+                                    v-model="orderForm.Operateach" placeholder="请输入操作师"></el-input>
+                            </el-form-item>
                         </el-col>
+                    </el-row>
+                    <el-row>
+                       <el-col :span="16">
+                            <el-form-item label="备注:" prop="Comment" >
+                                <el-input size="middle" style="width: 456px;" prefix-icon=""
+                                    v-model="orderForm.Comment" placeholder="备注内容"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        
                     </el-row>
                 </el-form>
             </div>
@@ -258,6 +351,7 @@ export default {
             itemList: [],
             consumetypeList: [],
             customerList: [],
+            customeridList: [],
             orderForm: {
                 "Orderid": null,
                 "Visittime": null,
@@ -277,7 +371,7 @@ export default {
                 "Kkmoney": null,
                 "Owedmoney": null,
                 "Paidmoney": null,
-                "Consulteach": null,
+                "Consultteach": null,
                 "Dqteach": null,
                 "Operateach": null,
                 "Operanum": null,
@@ -308,6 +402,12 @@ export default {
     methods: {
         initData() {
             //有些不会变的数据，可以在初始化后放到sessionStorage中，减少数据库查询(windows.sessionstorage.setitem())
+            //初始化门店信息
+            this.getRequest("/api/basic/customerid").then(resp => {
+                if (resp) {
+                    this.customeridList = resp.data
+                }
+            });
             //初始化门店信息
             this.getRequest("/api/basic/shop").then(resp => {
                 if (resp) {
@@ -412,10 +512,10 @@ export default {
         //添加客户
         doAddCustomer() {
             //查看是否有id，如果有说明是编辑的动作
-            if (this.customerForm.Customerid) {
-                this.$refs['customerForm'].validate(valid => {
+            if (this.orderForm.Customerid) {
+                this.$refs['orderForm'].validate(valid => {
                     if (valid) {
-                        this.customerForm.Customerid = this.customerForm.Name + this.customerForm.Visittime.replaceAll("-", "") + this.customerForm.Phone
+                        // this.orderForm.Customerid = this.customerForm.Name + this.customerForm.Visittime.replaceAll("-", "") + this.customerForm.Phone
                         // console.log(this.customerForm)
                         // this.$message.success("信息正确")
                         this.putRequest("/api/customer/update", this.customerForm).then(resp => {
@@ -433,9 +533,9 @@ export default {
                     }
                 })
             } else {
-                this.$refs['customerForm'].validate(valid => {
+                this.$refs['orderForm'].validate(valid => {
                     if (valid) {
-                        this.customerForm.Customerid = this.customerForm.Name + this.customerForm.Visittime.replaceAll("-", "") + this.customerForm.Phone
+                        // this.customerForm.Customerid = this.customerForm.Name + this.customerForm.Visittime.replaceAll("-", "") + this.customerForm.Phone
                         // console.log(this.customerForm)
                         // this.$message.success("信息正确")
                         this.postRequest("/api/customer/add", this.customerForm).then(resp => {
