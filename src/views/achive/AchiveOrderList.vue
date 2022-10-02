@@ -196,91 +196,91 @@
 
                     </el-row>
                     <el-row>
-                       <el-col :span="6">
-                            <el-form-item label="疗程次数:" prop="Treatnum" >
+                        <el-col :span="6">
+                            <el-form-item label="疗程次数:" prop="Treatnum">
                                 <el-input size="middle" style="width: 150px;" prefix-icon=""
-                                    v-model="orderForm.Treatnum" placeholder="请输入疗程次数"></el-input>
+                                    v-model.number="orderForm.Treatnum" placeholder="请输入疗程次数"></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :span="6" >
-                            <el-form-item label="四维美雕金额:" prop="Swmdmoney" >
+                        <el-col :span="6">
+                            <el-form-item label="四维美雕金额:" prop="Swmdmoney">
                                 <el-input size="middle" style="width: 150px;font-size: small;" prefix-icon=""
                                     v-model="orderForm.Swmdmoney" placeholder="请输入四维美雕金额"></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :span="6" >
-                            <el-form-item label="祛斑金额:" prop="Qbmoney" >
-                                <el-input size="middle" style="width: 150px;" prefix-icon=""
-                                    v-model="orderForm.Qbmoney" placeholder="请输入祛斑金额"></el-input>
+                        <el-col :span="6">
+                            <el-form-item label="祛斑金额:" prop="Qbmoney">
+                                <el-input size="middle" style="width: 150px;" prefix-icon="" v-model="orderForm.Qbmoney"
+                                    placeholder="请输入祛斑金额"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col :span="6">
-                            <el-form-item label="面膜金额:" prop="Mmmoney" >
-                                <el-input size="middle" style="width: 150px;" prefix-icon=""
-                                    v-model="orderForm.Mmmoney" placeholder="请输入面膜金额"></el-input>
+                            <el-form-item label="面膜金额:" prop="Mmmoney">
+                                <el-input size="middle" style="width: 150px;" prefix-icon="" v-model="orderForm.Mmmoney"
+                                    placeholder="请输入面膜金额"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
-                       <el-col :span="6">
-                            <el-form-item label="面膜盒数:" prop="Mmboxnum" >
+                        <el-col :span="6">
+                            <el-form-item label="面膜盒数:" prop="Mmboxnum">
                                 <el-input size="middle" style="width: 150px;" prefix-icon=""
                                     v-model="orderForm.Mmboxnum" placeholder="请输入面膜盒数"></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :span="6" >
-                            <el-form-item label="捐赠盒数:" prop="Donateboxnum" >
+                        <el-col :span="6">
+                            <el-form-item label="捐赠盒数:" prop="Donateboxnum">
                                 <el-input size="middle" style="width: 150px;" prefix-icon=""
                                     v-model="orderForm.Donateboxnum" placeholder="请输入捐赠盒数"></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :span="6" >
-                            <el-form-item label="冻干粉金额:" prop="Dgfmoney" >
+                        <el-col :span="6">
+                            <el-form-item label="冻干粉金额:" prop="Dgfmoney">
                                 <el-input size="middle" style="width: 150px;" prefix-icon=""
                                     v-model="orderForm.Dgfmoney" placeholder="请输入冻干粉金额"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col :span="6">
-                            <el-form-item label="修复液金额:" prop="Xfymoney" >
+                            <el-form-item label="修复液金额:" prop="Xfymoney">
                                 <el-input size="middle" style="width: 150px;" prefix-icon=""
                                     v-model="orderForm.Xfymoney" placeholder="请输入修复液金额"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
-                       <el-col :span="6">
-                            <el-form-item label="合计成交金额:" prop="Totalmoney" >
+                        <el-col :span="6">
+                            <el-form-item label="合计成交金额:" prop="Totalmoney">
                                 <el-input size="middle" style="width: 150px;font-size: small;" prefix-icon=""
                                     v-model="orderForm.Totalmoney" placeholder="请输入合计成交金额"></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :span="6" >
-                            <el-form-item label="回款金额:" prop="Returnmoney" >
+                        <el-col :span="6">
+                            <el-form-item label="回款金额:" prop="Returnmoney">
                                 <el-input size="middle" style="width: 150px;" prefix-icon=""
                                     v-model="orderForm.Returnmoney" placeholder="请输入回款金额"></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :span="6" >
-                            <el-form-item label="卡扣金额:" prop="Kkmoney" >
-                                <el-input size="middle" style="width: 150px;" prefix-icon=""
-                                    v-model="orderForm.Kkmoney" placeholder="请输入卡扣金额"></el-input>
+                        <el-col :span="6">
+                            <el-form-item label="卡扣金额:" prop="Kkmoney">
+                                <el-input size="middle" style="width: 150px;" prefix-icon="" v-model="orderForm.Kkmoney"
+                                    placeholder="请输入卡扣金额"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col :span="6">
-                            <el-form-item label="欠款金额:" prop="Owedmoney" >
+                            <el-form-item label="欠款金额:" prop="Owedmoney">
                                 <el-input size="middle" style="width: 150px;" prefix-icon=""
                                     v-model="orderForm.Owedmoney" placeholder="请输入欠款金额"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
-                       <el-col :span="6">
-                            <el-form-item label="实付金额:" prop="Paidmoney" >
+                        <el-col :span="6">
+                            <el-form-item label="实付金额:" prop="Paidmoney">
                                 <el-input size="middle" style="width: 150px;font-size: small;" prefix-icon=""
                                     v-model="orderForm.Paidmoney" placeholder="请输入实付金额"></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :span="6" >
+                        <el-col :span="6">
                             <el-form-item label="咨询师:" prop="Consultteach">
                                 <el-select filterable style="width: 150px;" v-model="orderForm.Consultteach"
                                     placeholder="请选择咨询师">
@@ -290,27 +290,27 @@
                                 </el-select>
                             </el-form-item>
                         </el-col>
-                        <el-col :span="6" >
-                            <el-form-item label="导前师:" prop="Dqteach" >
-                                <el-input size="middle" style="width: 150px;" prefix-icon=""
-                                    v-model="orderForm.Dqteach" placeholder="请输入导前师"></el-input>
+                        <el-col :span="6">
+                            <el-form-item label="导前师:" prop="Dqteach">
+                                <el-input size="middle" style="width: 150px;" prefix-icon="" v-model="orderForm.Dqteach"
+                                    placeholder="请输入导前师"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col :span="6">
-                            <el-form-item label="操作师:" prop="Operateach" >
+                            <el-form-item label="操作师:" prop="Operateach">
                                 <el-input size="middle" style="width: 150px;" prefix-icon=""
                                     v-model="orderForm.Operateach" placeholder="请输入操作师"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
-                       <el-col :span="16">
-                            <el-form-item label="备注:" prop="Comment" >
-                                <el-input size="middle" style="width: 456px;" prefix-icon=""
-                                    v-model="orderForm.Comment" placeholder="备注内容"></el-input>
+                        <el-col :span="16">
+                            <el-form-item label="备注:" prop="Comment">
+                                <el-input size="middle" style="width: 456px;" prefix-icon="" v-model="orderForm.Comment"
+                                    placeholder="备注内容"></el-input>
                             </el-form-item>
                         </el-col>
-                        
+
                     </el-row>
                 </el-form>
             </div>
@@ -326,6 +326,8 @@
 export default {
     name: "AchiveOrderList",
     data() {
+        //定义规则NumberPattern，限制输入0-100的整数，将在cfg_rules中引用
+        const NumberPattern = new RegExp(/^([0-9]?[0-9]?\d|10000)$/);
         return {
             // controlUpdateOrAdd:"add",
             controlSearch: false,
@@ -352,6 +354,8 @@ export default {
             consumetypeList: [],
             customerList: [],
             customeridList: [],
+
+
             orderForm: {
                 "Orderid": null,
                 "Visittime": null,
@@ -381,16 +385,29 @@ export default {
                 // "item": "",
                 // "consumetype": "",
             },
+
             rules: {
-                Name: [{ required: true, message: "请输入会员名", trigger: 'blur' }],
-                Gender: [{ required: true, message: "请选择姓名", trigger: 'blur' }],
-                Phone: [{ required: true, message: "请输入手机号码", trigger: 'blur' },
-                { pattern: /^1[34578]\d{9}$/, message: "请输入11位手机号码", trigger: 'blur' }],
-                Shop: [{ required: true, message: "请选择门店", trigger: 'blur' }],
-                Consultteach: [{ required: true, message: "请选择咨询师", trigger: 'blur' }],
-                // item: [{ required: true, message: "请选择项目", trigger: 'blur' }],
+                Customerid: [{ required: true, message: "请选择会员", trigger: 'blur' }],
+                Consumetype: [{ required: true, message: "请选择消费类型", trigger: 'blur' }],
                 Visittime: [{ required: true, message: "请选择见诊日期", trigger: 'blur' }],
                 // consumetype: [{ required: true, message: "请选择消费类型", trigger: 'blur' }],
+                Item: [{ required: true, message: "请选择项目", trigger: 'blur' }],
+                // { pattern: /^1[34578]\d{9}$/, message: "请输入11位手机号码", trigger: 'blur' }],
+                Treatnum: [{ type: "number", message: "必须为数字", trigger: 'blur' }, { type: "number", message: "必须为数字", trigger: "change" },
+                {
+                    pattern: NumberPattern,
+                    message: "0-10000之间的整数",
+                    trigger: "blur",
+                }],
+                Swmdmoney: [
+                    { required: true, type: 'string', trigger: 'blur', message: '合同金额不能为空' },
+                    { pattern: /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/, message: '请输入正确额格式,可保留两位小数' }
+                ],
+
+
+                Consultteach: [{ required: true, message: "请选择咨询师", trigger: 'blur' }],
+                // item: [{ required: true, message: "请选择项目", trigger: 'blur' }],
+                
             }
 
         }
