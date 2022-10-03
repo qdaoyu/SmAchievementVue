@@ -88,12 +88,12 @@
                 </el-table-column>
                 <el-table-column prop="Consultteach" label="所属咨询师" align="center" width="150">
                 </el-table-column>
-                <el-table-column prop="Treatnum" label="疗程次数" align="center" width="120">
-                </el-table-column>
-                <el-table-column prop="Operanum" label="操作次数" align="center" width="120">
+                <!-- <el-table-column prop="Treatnum" label="疗程次数" align="center" width="120">
+                </el-table-column> -->
+                <!-- <el-table-column prop="Operanum" label="操作次数" align="center" width="120">
                 </el-table-column>
                 <el-table-column prop="Unoperanum" label="剩余次数" sortable align="center" width="120">
-                </el-table-column>
+                </el-table-column> -->
 
                 <el-table-column fixed="right" label="操作" align="center">
                     <template slot-scope="scope">
@@ -218,6 +218,7 @@ export default {
             // itemList: [],
             // consumetypeList: [],
             customerList: [],
+            nDialogState: 0,
             customerForm: {
                 "Customerid": null,
                 "Name": "",
@@ -225,9 +226,7 @@ export default {
                 "Phone": "",
                 "Shop": "",
                 "Consultteach": "",
-                "Visittime": "",
-                // "item": "",
-                // "consumetype": "",
+                "Visittime": ""
             },
             rules: {
                 Name: [{ required: true, message: "请输入会员名", trigger: 'blur' }],
@@ -307,7 +306,8 @@ export default {
                     arr.push(resp.data);
                     this.customerList = arr[0];
                     this.total = resp.total;
-                    console.log("this.tableData", this.customerList[0]);
+                    
+                    
                 }
             })
         },
@@ -322,6 +322,7 @@ export default {
             this.initCustomerList();
         },
         showAddCustomerView() {
+            this.nDialogState = 1
             this.title = "添加会员信息"
             this.customerForm = {
                 "Customerid": null,
@@ -334,10 +335,11 @@ export default {
                 // "item": "",
                 // "consumetype": "",
             },
-                this.initData()
+            this.initData()
             this.dialogVisible = true
         },
         showEditCustomerView(data) {
+            this.nDialogState = 0
             console.log(data)
             this.title = "编辑会员信息";
             this.customerForm = data;
@@ -349,9 +351,9 @@ export default {
             this.downloadRequest('/api/customer/export');
         },
         //添加客户
-        doAddCustomer() {
+        doAddCustomer(state) {
             //查看是否有id，如果有说明是编辑的动作
-            if (this.customerForm.Customerid) {
+            if (this.nDialogState === 0) {
                 this.$refs['customerForm'].validate(valid => {
                     if (valid) {
                         // this.customerForm.Customerid = this.customerForm.Name + this.customerForm.Visittime.replaceAll("-", "") + this.customerForm.Phone
@@ -363,7 +365,6 @@ export default {
                                 this.$message.success("更新会员信息成功")
                                 this.dialogVisible = false
                                 this.initCustomerList();
-
                             }
                         })
 
@@ -384,6 +385,8 @@ export default {
                                 this.dialogVisible = false;
                                 this.initCustomerList();
 
+                            }else{
+                                this.customerForm.Customerid = null
                             }
                         })
 
@@ -393,8 +396,6 @@ export default {
                     }
                 })
             }
-
-
         },
         //删除客户
         deleteCustomer(data) {
